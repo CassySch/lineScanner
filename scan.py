@@ -5,10 +5,10 @@ from extractCoords import find_laser_line_coordinates
 from plotCoords import plot_coordinates
 
 
-def scan(cap, ser, threshold_value=100, step_size=1):
+def scan(cap, ser, threshold_value=212, step_size=0.5):
     all_coordinates = []  # To store coordinates from each scan
     x_pos = 0
-    while True:
+    while x_pos < 15:
         # Capture a frame from the webcam
         ret, frame = cap.read()
         if not ret:
@@ -28,7 +28,8 @@ def scan(cap, ser, threshold_value=100, step_size=1):
         all_coordinates.append(coordinates)
         x_pos+=step_size
         # Advance the machine by step_size
-        gcode_command = f'G1 X{x_pos}\n'
+        gcode_command = f'X{x_pos}\n'
         ser.write(gcode_command.encode())
         response = ser.readline().decode().strip()
         print("Response:", response)
+    plot_coordinates(all_coordinates)

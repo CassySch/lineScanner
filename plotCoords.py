@@ -11,8 +11,14 @@ def plot_coordinates(coordinates):
     if not coordinates:
         print("No coordinates found.")
         return
+    x_coords = []
+    y_coords = []
+    for line in coordinates:
+        for x, y in line:
+            x_coords.append(x)
+            y_coords.append(y)
 
-    x_coords, y_coords = zip(*coordinates)
+   # x_coords, y_coords = zip(*coordinates)
 
     # Plot the coordinates
     plt.figure()
