@@ -28,7 +28,7 @@ def scan(cap, ser, threshold_value=212, step_size=0.5):
         all_coordinates.append(coordinates)
         x_pos+=step_size
         # Advance the machine by step_size
-        gcode_command = f'X{x_pos}\n'
+        gcode_command = f'$J=G21G91X{step_size}F100\n'
         ser.write(gcode_command.encode())
         response = ser.readline().decode().strip()
         print("Response:", response)
